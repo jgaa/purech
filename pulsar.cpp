@@ -19,6 +19,8 @@ using namespace restc_cpp;
 
 namespace purech {
 
+Config Engine::config_;
+
 struct PrcCtx {
     using io_buf_t = boost::asio::streambuf;
     PrcCtx(boost::asio::io_context& ctx, const Config& cfg, const std::string& kubeFile)
@@ -142,9 +144,8 @@ std::string strings(const T& list) {
 } // ans
 
 Engine::Engine(const Config &config)
-    : config_{config}
 {
-
+    config_ = config;
 }
 
 void Engine::run()
@@ -313,14 +314,25 @@ void Engine::Cluster::setKubeconfig(const string &def)
 
     if (args.size() >= 2) {
         name = args.at(1);
+    } else {
+        // Name is the first part of the path to the kubefile, before the first dot
+        boost::filesystem::path p{origin};
+        name = p.filename().string();
+        if (auto pos = name.find('.') ; pos && pos != string::npos) {
+            name = name.substr(0, pos);
+        }
     }
 
     if (args.size() >= 3) {
         ns = args.at(2);
+    } else {
+        ns = config_.ns;
     }
 
     if (args.size() >= 4) {
         svcName = args.at(3);
+    } else {
+        svcName = config_.brokerSvcName;
     }
 }
 

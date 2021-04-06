@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project (purech VERSION 0.0.1 LANGUAGES CXX)
+project (purech VERSION 0.0.2 LANGUAGES CXX)
 
 find_package(ZLIB REQUIRED)
 find_package(OpenSSL REQUIRED)

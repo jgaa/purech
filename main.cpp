@@ -34,17 +34,17 @@ int main(int argc, char* argv[]) {
     general.add_options()("help,h", "Print help and exit")
             ("log-level,l", po::value<string>(&log_level)->default_value("info"),
              "Log-level to use; one of 'info', 'debug', 'trace'")
-            ("hide-idle", "Hide idle objects")
+            //("hide-idle", "Hide idle objects")
             //("hide-streams,S", "Hide individual streams")
             //("hide-stats", "Hide statistics")
             //("diagnostics-only,d", "Show only diqgnostics output")
             //("show-no-publishers", "Show 'no-publishers' in problems report")
             //("problems-only,p", "No reports - just look for problems.")
             //("streams-report,s", "Just list all the streams without all the details.")
-            //("topic-filter,f", po::value<string>(&config.topicFilter))
-            //("service-name,n", po::value<string>(&config.pulsarSvcName)->default_value(config.pulsarSvcName))
+            ("topic-filter,f", po::value<string>(&config.topicFilter))
+            ("service-name,N", po::value<string>(&config.brokerSvcName)->default_value(config.brokerSvcName))
             ("local-port,P", po::value<uint16_t>(&config.localPort)->default_value(config.localPort))
-            ("namespace,N", po::value<string>(&config.ns)->default_value(config.ns))
+            ("namespace,n", po::value<string>(&config.ns)->default_value(config.ns))
             ;
 
     po::options_description hidden("Hidden options");

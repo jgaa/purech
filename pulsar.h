@@ -65,7 +65,7 @@ private:
     void processCluster(Cluster& cluster, restc_cpp::Context& ctx);
     void simpleSummary();
 
-    const Config& config_;
+    static Config config_;
     std::map<std::string_view, std::shared_ptr<Cluster>> clusters_;
     std::unique_ptr<restc_cpp::RestClient> client_;
     std::vector<std::shared_ptr<PrcCtx>> processes_;
